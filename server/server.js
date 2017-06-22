@@ -24,6 +24,19 @@ module.exports = function (port, middleware, callback) {
         res.sendStatus(201);
     });
 
+    // Update task title
+    app.put("/api/todo/title/:id", function (req, res) {
+        for (var i = 0; i < todos.length; ++i) {
+            if (todos[i].id === req.params.id) {
+                todos[i].title = req.body.title;
+                res.sendStatus(200);
+                return;
+            }
+        }
+
+        res.sendStatus(404);
+    });
+
     // Read
     app.get("/api/todo", function (req, res) {
         res.json(todos);
