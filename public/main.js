@@ -67,7 +67,7 @@ function reloadTodoList() {
             var deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete";
             deleteButton.onclick = function () {
-                deleteTodo(todo.id, reloadTodoList());
+                deleteTodo(todo.id, reloadTodoList);
             };
             deleteButton.className = "deleteButton";
             listItem.textContent = todo.title;

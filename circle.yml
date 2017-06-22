@@ -1,6 +1,4 @@
 machine:
-  npm:
-    version: 3.10.10
   node:
     version: 6.11.0
 general:
@@ -11,6 +9,3 @@ deployment:
     branch: master
     heroku:
       appname: todo-grad-project-ronan
-dependencies:
-  pre:
-    - npm install grunt-cli
