@@ -1,6 +1,3 @@
-machine:
-  node:
-    version: 6.11.0
 general:
   artifacts:
     - "build_artifacts"
@@ -9,3 +6,6 @@ deployment:
     branch: master
     heroku:
       appname: todo-grad-project-ronan
+dependencies:
+  pre:
+    - npm install grunt-cli
