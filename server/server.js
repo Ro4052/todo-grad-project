@@ -44,13 +44,10 @@ module.exports = function (port, middleware, callback) {
     });
 
     function getTodo(id) {
-        console.log(todos)
-        const filteredTodos = _.find(todos, function (todo) {
-            console.log(todo, todo.id)
+        var filteredTodos = _.find(todos, function (todo) {
             return todo.id === id;
-        })
-        console.log(id, filteredTodos)
-        return filteredTodos[0];
+        });
+        return filteredTodos;
     }
 
     var server = app.listen(port, callback);
