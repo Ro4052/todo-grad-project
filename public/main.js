@@ -61,10 +61,11 @@ function deleteCompleted(callback) {
         var delList = [];
         for (var i = 0; i < todos.length; ++i) {
             if (todos[i].isComplete) {
-                deleteTodo(todos[i].id, callback);
+                deleteTodo(todos[i].id, function () {});
             }
         }
     });
+    setTimeout(callback, 10);
 }
 
 function getTodoList(callback) {
