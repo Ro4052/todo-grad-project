@@ -33,7 +33,6 @@ module.exports = function (port, middleware, callback) {
                 return;
             }
         }
-
         res.sendStatus(404);
     });
 
@@ -46,7 +45,6 @@ module.exports = function (port, middleware, callback) {
                 return;
             }
         }
-
         res.sendStatus(404);
     });
 
@@ -68,6 +66,24 @@ module.exports = function (port, middleware, callback) {
             res.sendStatus(404);
         }
     });
+
+    // Delete completed tasks
+    // app.delete("/api/todo/delcomp", function (req, res) {
+    //     console.log("Function started");
+    //     var newTodos = [];
+    //     for (var i = 0; i < todos.length; ++i) {
+    //         console.log("Here", todo);
+    //         if (!todos[i].isComplete) {
+    //             newTodos.push(todo);
+    //         }
+    //     }
+    //     if (todos.length === newTodos.length) {
+    //         res.sendStatus(200);
+    //     } else {
+    //         todos = newTodos;
+    //         res.sendStatus(200);
+    //     }
+    // });
 
     function getTodo(id) {
         var filteredTodos = _.find(todos, function (todo) {

@@ -56,6 +56,17 @@ function completeTodo(id, callback) {
     };
 }
 
+function deleteCompleted(callback) {
+    getTodoList(function(todos) {
+        var delList = [];
+        for (var i = 0; i < todos.length; ++i) {
+            if (todos[i].isComplete) {
+                deleteTodo(todos[i].id, callback);
+            }
+        }
+    });
+}
+
 function getTodoList(callback) {
     var createRequest = new XMLHttpRequest();
     createRequest.open("GET", "/api/todo");
@@ -76,30 +87,38 @@ function reloadTodoList() {
     todoListPlaceholder.style.display = "block";
     getTodoList(function(todos) {
         todoListPlaceholder.style.display = "none";
+        todoList.appendChild(createButton("Delete Completed", "button", function () {
+            deleteCompleted(reloadTodoList);
+        }));
+        var drawButton = false;
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
-            var deleteButton = document.createElement("button");
             listItem.textContent = todo.title;
-            deleteButton.innerText = "Delete";
-            deleteButton.onclick = function () {
+            listItem.appendChild(createButton("Delete", "button", function () {
                 deleteTodo(todo.id, reloadTodoList);
-            };
-            deleteButton.className = "button";
-            listItem.appendChild(deleteButton);
+            }));
             if (!todo.isComplete) {
-                var completeButton = document.createElement("button");
-                completeButton.innerText = "Complete";
-                completeButton.onclick = function () {
+                listItem.appendChild(createButton("Complete", "button", function () {
                     completeTodo(todo.id, reloadTodoList);
-                };
-                completeButton.className = "button";
-                listItem.appendChild(completeButton);
+                }));
             } else {
                 listItem.className = listItem.className + " complete";
+                drawButton = true;
             }
             todoList.appendChild(listItem);
         });
+        if (!drawButton) {
+            todoList.removeChild(todoList.childNodes[0]);
+        }
     });
+}
+
+function createButton(text, cssClass, clickFunc) {
+    var button = document.createElement("button");
+    button.innerText = text;
+    button.className = cssClass;
+    button.onclick = clickFunc;
+    return button;
 }
 
 reloadTodoList();
