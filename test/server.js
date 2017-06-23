@@ -120,5 +120,36 @@ describe("server", function() {
                 });
             });
         });
+        describe("update a todo title", function() {
+            it("responds with status code 404 if there is no such item", function(done) {
+                request.put({
+                    url: todoListUrl + "/title/0",
+                    json: {
+                        title: "New title"
+                    }
+                }, function(error, response) {
+                    assert.equal(response.statusCode, 404);
+                    done();
+                });
+            });
+            it("responds with status code 200", function(done) {
+                request.post({
+                    url: todoListUrl,
+                    json: {
+                        title: "This is a TODO item"
+                    }
+                }, function() {
+                    request.put({
+                        url: todoListUrl + "/title/0",
+                        json: {
+                            title: "New title"
+                        }
+                    }, function(error, response) {
+                        assert.equal(response.statusCode, 200);
+                        done();
+                    });
+                });
+            });
+        });
     });
 });
