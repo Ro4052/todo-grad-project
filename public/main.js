@@ -18,7 +18,8 @@ function createTodo(title, callback) {
     createRequest.open("POST", "/api/todo");
     createRequest.setRequestHeader("Content-type", "application/json");
     createRequest.send(JSON.stringify({
-        title: title
+        title: title,
+        isComplete: false
     }));
     createRequest.onload = function() {
         if (this.status === 201) {
@@ -38,6 +39,19 @@ function deleteTodo(id, callback) {
             callback();
         } else {
             error.textContent = "Failed to delete item. Server returned " + this.status + " - " + this.responseText;
+        }
+    };
+}
+
+function completeTodo(id, callback) {
+    var createRequest = new XMLHttpRequest();
+    createRequest.open("PUT", "/api/todo/complete/" + id);
+    createRequest.send();
+    createRequest.onload = function() {
+        if (this.status === 200) {
+            callback();
+        } else {
+            error.textContent = "Failed to complete item. Server returned " + this.status + " - " + this.responseText;
         }
     };
 }
@@ -65,13 +79,24 @@ function reloadTodoList() {
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
             var deleteButton = document.createElement("button");
+            listItem.textContent = todo.title;
             deleteButton.innerText = "Delete";
             deleteButton.onclick = function () {
                 deleteTodo(todo.id, reloadTodoList);
             };
-            deleteButton.className = "deleteButton";
-            listItem.textContent = todo.title;
+            deleteButton.className = "button";
             listItem.appendChild(deleteButton);
+            if (!todo.isComplete) {
+                var completeButton = document.createElement("button");
+                completeButton.innerText = "Complete";
+                completeButton.onclick = function () {
+                    completeTodo(todo.id, reloadTodoList);
+                };
+                completeButton.className = "button";
+                listItem.appendChild(completeButton);
+            } else {
+                listItem.className = listItem.className + " complete";
+            }
             todoList.appendChild(listItem);
         });
     });

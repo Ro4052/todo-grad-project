@@ -28,6 +28,10 @@ li {
     
 }
 
-.deleteButton{
+.button {
     margin-left: 10px;
+}
+
+.complete {
+    color: grey;
 }
