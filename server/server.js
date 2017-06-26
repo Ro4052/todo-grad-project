@@ -73,7 +73,7 @@ module.exports = function (port, middleware, callback) {
         todos = todos.filter(function (todo) {
             return !todo.isComplete;
         });
-        if (oldTodos !== todos) {
+        if (oldTodos.length !== todos.length) {
             res.sendStatus(200);
         } else {
             res.sendStatus(404);

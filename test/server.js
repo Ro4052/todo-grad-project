@@ -228,5 +228,47 @@ describe("server", function() {
                 });
             });
         });
+        describe("delete completed todos", function() {
+            it("responds with status code 404 if there are no completed items", function(done) {
+                request.del(todoListUrl, function(error, response) {
+                    assert.equal(response.statusCode, 404);
+                    done();
+                });
+            });
+            it("responds with status code 200", function(done) {
+                request.post({
+                    url: todoListUrl,
+                    json: {
+                        title: "This is a TODO item",
+                        isComplete: false
+                    }
+                }, function() {
+                    request.put(todoListUrl + "/complete/0", function() {
+                        request.del(todoListUrl, function(error, response) {
+                            assert.equal(response.statusCode, 200);
+                            done();
+                        });
+                    });
+                });
+            });
+            it("has deleted the task", function(done) {
+                request.post({
+                    url: todoListUrl,
+                    json: {
+                        title: "This is a TODO item",
+                        isComplete: false
+                    }
+                }, function() {
+                    request.put(todoListUrl + "/complete/0", function() {
+                        request.del(todoListUrl, function() {
+                            request.del(todoListUrl + "/0", function(error, response) {
+                                assert.equal(response.statusCode, 404);
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+        });
     });
 });
