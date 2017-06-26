@@ -53,7 +53,6 @@ function completeTodo(id, callback) {
 
 function deleteCompleted(callback) {
     getTodoList(function(todos) {
-        var delList = [];
         for (var i = 0; i < todos.length; ++i) {
             if (todos[i].isComplete) {
                 deleteTodo(todos[i].id, function () {});
