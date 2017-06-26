@@ -54,7 +54,8 @@ function completeTodo(id, callback) {
 function deleteCompleted(callback) {
     fetch("./api/todo", {method: "delete"}).then(function(response) {
         if (response.status !== 200) {
-            error.textContent = "Failed to delete completed items. Server returned " + response.status + " - " + response.status;
+            error.textContent = "Failed to delete completed items. Server returned " +
+            response.status + " - " + response.status;
             return;
         }
     }).then(callback);
