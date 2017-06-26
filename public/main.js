@@ -3,6 +3,7 @@ var todoListPlaceholder = document.getElementById("todo-list-placeholder");
 var form = document.getElementById("todo-form");
 var todoTitle = document.getElementById("new-todo");
 var error = document.getElementById("error");
+var filterState = 0;
 
 form.onsubmit = function(event) {
     var title = todoTitle.value;
@@ -88,28 +89,44 @@ function reloadTodoList() {
     todoListPlaceholder.style.display = "block";
     getTodoList(function(todos) {
         todoListPlaceholder.style.display = "none";
-        todoList.appendChild(createButton("Delete Completed", "button", function () {
+        todoList.appendChild(createButton("All", "button", function () {
+            filterState = 0;
+            reloadTodoList();
+        }));
+        todoList.appendChild(createButton("Active", "button", function () {
+            filterState = 1;
+            reloadTodoList();
+        }));
+        todoList.appendChild(createButton("Completed", "button", function () {
+            filterState = 2;
+            reloadTodoList();
+        }));
+        todoList.appendChild(createButton("Delete Completed", "button taskButton", function () {
             deleteCompleted(reloadTodoList);
         }));
         var drawButton = false;
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
             listItem.textContent = todo.title;
-            listItem.appendChild(createButton("Delete", "button", function () {
+            listItem.appendChild(createButton("Delete", "button taskButton", function () {
                 deleteTodo(todo.id, reloadTodoList);
             }));
             if (!todo.isComplete) {
-                listItem.appendChild(createButton("Complete", "button", function () {
+                listItem.appendChild(createButton("Complete", "button taskButton", function () {
                     completeTodo(todo.id, reloadTodoList);
                 }));
             } else {
                 listItem.className = listItem.className + " complete";
                 drawButton = true;
             }
-            todoList.appendChild(listItem);
+            if ((filterState === 0) ||
+            ((filterState === 1) && !todo.isComplete) ||
+            ((filterState === 2) && todo.isComplete)) {
+                todoList.appendChild(listItem);
+            }
         });
         if (!drawButton) {
-            todoList.removeChild(todoList.childNodes[0]);
+            todoList.removeChild(todoList.childNodes[3]);
         }
     });
 }
