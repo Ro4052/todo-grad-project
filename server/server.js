@@ -67,6 +67,19 @@ module.exports = function (port, middleware, callback) {
         }
     });
 
+    // Delete completed tasks
+    app.delete("/api/todo", function (req, res) {
+        var oldTodos = todos;
+        todos = todos.filter(function (todo) {
+            return !todo.isComplete;
+        });
+        if (oldTodos !== todos) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+
     function getTodo(id) {
         var filteredTodos = _.find(todos, function (todo) {
             return todo.id === id;

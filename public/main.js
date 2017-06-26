@@ -52,14 +52,12 @@ function completeTodo(id, callback) {
 }
 
 function deleteCompleted(callback) {
-    getTodoList(function(todos) {
-        for (var i = 0; i < todos.length; ++i) {
-            if (todos[i].isComplete) {
-                deleteTodo(todos[i].id, function () {});
-            }
+    fetch("./api/todo", {method: "delete"}).then(function(response) {
+        if (response.status !== 200) {
+            error.textContent = "Failed to delete completed items. Server returned " + response.status + " - " + response.status;
+            return;
         }
-    });
-    setTimeout(callback, 15);
+    }).then(callback);
 }
 
 function getTodoList(callback) {
