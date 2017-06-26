@@ -29,6 +29,8 @@ li {
 }
 
 .button {
+    border-radius: 10px;
+    box-shadow: 0 8px 6px -6px black;
     margin-left: 10px;
 }
 

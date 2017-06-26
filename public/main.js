@@ -65,7 +65,7 @@ function deleteCompleted(callback) {
             }
         }
     });
-    setTimeout(callback, 10);
+    setTimeout(callback, 15);
 }
 
 function getTodoList(callback) {
