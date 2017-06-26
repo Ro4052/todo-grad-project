@@ -93,18 +93,18 @@ function reloadTodoList() {
             filterState = 2;
             reloadTodoList();
         }));
-        todoList.appendChild(createButton("Delete Completed", "button taskButton", function () {
+        todoList.appendChild(createButton("Delete Completed", "button deleteButton", function () {
             deleteCompleted(reloadTodoList);
         }));
         var drawButton = false;
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
             listItem.textContent = todo.title;
-            listItem.appendChild(createButton("Delete", "button taskButton", function () {
+            listItem.appendChild(createButton("Delete", "button deleteButton", function () {
                 deleteTodo(todo.id, reloadTodoList);
             }));
             if (!todo.isComplete) {
-                listItem.appendChild(createButton("Complete", "button taskButton", function () {
+                listItem.appendChild(createButton("Complete", "button completeButton", function () {
                     completeTodo(todo.id, reloadTodoList);
                 }));
             } else {
