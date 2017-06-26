@@ -132,18 +132,3 @@ function createButton(text, cssClass, clickFunc) {
 }
 
 reloadTodoList();
-setInterval(function () {
-    getTodoList(function (list) {
-        if (list.length === todoList.length) {
-            for (var i = 0; i < list.length; ++i) {
-                if ((list[0].id !== todoList[0].id) || (list[0].title !== todoList[0].title) ||
-                (list[0].isComplete != todoList[0].isComplete)) {
-                    reloadList();
-                    return;
-                }
-            }
-        } else {
-            reloadList();
-        }
-    })
-}, 100);
