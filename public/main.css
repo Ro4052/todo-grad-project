@@ -26,6 +26,7 @@ h1 {
 
 li {
     margin-top: 10px;
+    list-style-type: square;
 }
 
 .button {
