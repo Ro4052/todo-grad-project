@@ -40,7 +40,7 @@ module.exports = function (port, middleware, callback) {
     app.put("/api/todo/complete/:id", function (req, res) {
         for (var i = 0; i < todos.length; ++i) {
             if (todos[i].id === req.params.id) {
-                todos[i].isComplete = true;
+                todos[i].isComplete = !todos[i].isComplete;
                 res.sendStatus(200);
                 return;
             }

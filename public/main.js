@@ -105,14 +105,14 @@ function reloadTodoList() {
             listItem.appendChild(createButton("Delete", "button deleteButton", function () {
                 deleteTodo(todo.id, reloadTodoList);
             }));
-            if (!todo.isComplete) {
-                listItem.appendChild(createButton("Complete", "button completeButton", function () {
-                    completeTodo(todo.id, reloadTodoList);
-                }));
-            } else {
+            var name = (!todo.isComplete) ? "Complete" : "Uncomplete";
+            if (todo.isComplete) {
                 listItem.className = listItem.className + " complete";
                 drawButton = true;
             }
+            listItem.appendChild(createButton(name, "button completeButton", function () {
+                completeTodo(todo.id, reloadTodoList);
+            }));
             if ((filterState === states.All) ||
             ((filterState === states.Active) && !todo.isComplete) ||
             ((filterState === states.Completed) && todo.isComplete)) {
