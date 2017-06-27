@@ -79,12 +79,10 @@ function getTodoList(callback) {
 }
 
 function reloadTodoList() {
-    while (todoList.firstChild) {
-        todoList.removeChild(todoList.firstChild);
-    }
-    todoListPlaceholder.style.display = "block";
     getTodoList(function(todos) {
-        todoListPlaceholder.style.display = "none";
+        while (todoList.firstChild) {
+            todoList.removeChild(todoList.firstChild);
+        }
         todoList.appendChild(createButton("All", "button", function () {
             filterState = states.All;
             reloadTodoList();
