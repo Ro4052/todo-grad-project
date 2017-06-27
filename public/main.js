@@ -3,7 +3,13 @@ var todoListPlaceholder = document.getElementById("todo-list-placeholder");
 var form = document.getElementById("todo-form");
 var todoTitle = document.getElementById("new-todo");
 var error = document.getElementById("error");
-var filterState = 0;
+
+var states = {
+    All: 0,
+    Active: 1,
+    Completed: 2
+};
+var filterState = states.All;
 
 form.onsubmit = function(event) {
     var title = todoTitle.value;
@@ -80,15 +86,15 @@ function reloadTodoList() {
     getTodoList(function(todos) {
         todoListPlaceholder.style.display = "none";
         todoList.appendChild(createButton("All", "button", function () {
-            filterState = 0;
+            filterState = states.All;
             reloadTodoList();
         }));
         todoList.appendChild(createButton("Active", "button", function () {
-            filterState = 1;
+            filterState = states.Active;
             reloadTodoList();
         }));
         todoList.appendChild(createButton("Completed", "button", function () {
-            filterState = 2;
+            filterState = states.Completed;
             reloadTodoList();
         }));
         todoList.appendChild(createButton("Delete Completed", "button deleteButton", function () {
@@ -109,9 +115,9 @@ function reloadTodoList() {
                 listItem.className = listItem.className + " complete";
                 drawButton = true;
             }
-            if ((filterState === 0) ||
-            ((filterState === 1) && !todo.isComplete) ||
-            ((filterState === 2) && todo.isComplete)) {
+            if ((filterState === states.All) ||
+            ((filterState === states.Active) && !todo.isComplete) ||
+            ((filterState === states.Completed) && todo.isComplete)) {
                 todoList.appendChild(listItem);
             }
         });
