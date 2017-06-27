@@ -124,7 +124,7 @@ function reloadTodoList() {
             activeTasks.removeChild(activeTasks.firstChild);
         }
         var label = document.createElement("label");
-        label.innerText = (todoList.childNodes.length - numComp - 4) + " task(s) left to complete";
+        label.innerText = (todos.length - numComp) + " task(s) left to complete";
         activeTasks.appendChild(label);
         if (!numComp) {
             todoList.removeChild(todoList.childNodes[3]);
