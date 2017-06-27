@@ -140,4 +140,4 @@ function createButton(text, cssClass, clickFunc) {
     return button;
 }
 
-setInterval(reloadTodoList, 50);
+reloadTodoList();
