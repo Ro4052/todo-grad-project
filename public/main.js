@@ -1,4 +1,5 @@
 var todoList = document.getElementById("todo-list");
+var activeTasks = document.getElementById("active-tasks"); 
 var todoListPlaceholder = document.getElementById("todo-list-placeholder");
 var form = document.getElementById("todo-form");
 var todoTitle = document.getElementById("new-todo");
@@ -98,7 +99,7 @@ function reloadTodoList() {
         todoList.appendChild(createButton("Delete Completed", "button deleteButton", function () {
             deleteCompleted(reloadTodoList);
         }));
-        var drawButton = false;
+        var numComp = 0;
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
             listItem.textContent = todo.title;
@@ -108,7 +109,7 @@ function reloadTodoList() {
             var name = (!todo.isComplete) ? "Complete" : "Uncomplete";
             if (todo.isComplete) {
                 listItem.className = listItem.className + " complete";
-                drawButton = true;
+                numComp++;
             }
             listItem.appendChild(createButton(name, "button completeButton", function () {
                 completeTodo(todo.id, reloadTodoList);
@@ -119,7 +120,13 @@ function reloadTodoList() {
                 todoList.appendChild(listItem);
             }
         });
-        if (!drawButton) {
+        if (activeTasks.firstChild) {
+            activeTasks.removeChild(activeTasks.firstChild);
+        }
+        var label = document.createElement("label");
+        label.innerText = (todoList.childNodes.length - numComp - 4) + " task(s) left to complete";
+        activeTasks.appendChild(label);
+        if (!numComp) {
             todoList.removeChild(todoList.childNodes[3]);
         }
     });
