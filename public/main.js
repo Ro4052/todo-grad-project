@@ -1,5 +1,5 @@
 var todoList = document.getElementById("todo-list");
-var activeTasks = document.getElementById("active-tasks"); 
+var activeTasks = document.getElementById("active-tasks");
 var todoListPlaceholder = document.getElementById("todo-list-placeholder");
 var form = document.getElementById("todo-form");
 var todoTitle = document.getElementById("new-todo");
