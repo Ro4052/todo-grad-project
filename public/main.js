@@ -84,21 +84,7 @@ function reloadTodoList() {
         while (todoList.firstChild) {
             todoList.removeChild(todoList.firstChild);
         }
-        todoList.appendChild(createButton("All", "button", function () {
-            filterState = states.All;
-            reloadTodoList();
-        }));
-        todoList.appendChild(createButton("Active", "button", function () {
-            filterState = states.Active;
-            reloadTodoList();
-        }));
-        todoList.appendChild(createButton("Completed", "button", function () {
-            filterState = states.Completed;
-            reloadTodoList();
-        }));
-        todoList.appendChild(createButton("Delete Completed", "button deleteButton", function () {
-            deleteCompleted(reloadTodoList);
-        }));
+        standardButtons();
         var numComp = 0;
         todos.forEach(function(todo) {
             var listItem = document.createElement("li");
@@ -106,11 +92,11 @@ function reloadTodoList() {
             listItem.appendChild(createButton("Delete", "button deleteButton", function () {
                 deleteTodo(todo.id, reloadTodoList);
             }));
-            var name = (!todo.isComplete) ? "Complete" : "Uncomplete";
             if (todo.isComplete) {
                 listItem.className = listItem.className + " complete";
                 numComp++;
             }
+            var name = (!todo.isComplete) ? "Complete" : "Uncomplete";
             listItem.appendChild(createButton(name, "button completeButton", function () {
                 completeTodo(todo.id, reloadTodoList);
             }));
@@ -120,16 +106,38 @@ function reloadTodoList() {
                 todoList.appendChild(listItem);
             }
         });
-        if (activeTasks.firstChild) {
-            activeTasks.removeChild(activeTasks.firstChild);
-        }
-        var label = document.createElement("label");
-        label.innerText = (todos.length - numComp) + " task(s) left to complete";
-        activeTasks.appendChild(label);
+        addLabel(todos.length - numComp);
         if (!numComp) {
             todoList.removeChild(todoList.childNodes[3]);
         }
     });
+}
+
+function standardButtons() {
+    todoList.appendChild(createButton("All", "button", function () {
+        filterState = states.All;
+        reloadTodoList();
+    }));
+    todoList.appendChild(createButton("Active", "button", function () {
+        filterState = states.Active;
+        reloadTodoList();
+    }));
+    todoList.appendChild(createButton("Completed", "button", function () {
+        filterState = states.Completed;
+        reloadTodoList();
+    }));
+    todoList.appendChild(createButton("Delete Completed", "button deleteButton", function () {
+        deleteCompleted(reloadTodoList);
+    }));
+}
+
+function addLabel(num) {
+    if (activeTasks.firstChild) {
+        activeTasks.removeChild(activeTasks.firstChild);
+    }
+    var label = document.createElement("label");
+    label.innerText = (num) + " task(s) left to complete";
+    activeTasks.appendChild(label);
 }
 
 function createButton(text, cssClass, clickFunc) {
