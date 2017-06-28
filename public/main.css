@@ -27,8 +27,9 @@ h1 {
 
 li {
     margin-top: 10px;
-    list-style-type: square;
+    list-style-image: url("favicon.ico");
     border-bottom: dashed;
+    border-bottom-width: 2px;
     max-width: 190px;
 }
 
