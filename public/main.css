@@ -34,6 +34,7 @@ li {
 }
 
 .inputBox {
+    margin-top: 20px;
     border-radius: 10px;
     text-indent: 10px;
 }

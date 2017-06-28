@@ -3,6 +3,9 @@ var activeTasks = document.getElementById("active-tasks");
 var todoListPlaceholder = document.getElementById("todo-list-placeholder");
 var form = document.getElementById("todo-form");
 var todoTitle = document.getElementById("new-todo");
+var updateForm = document.getElementById("todo-update");
+var updateId = document.getElementById("todo-id");
+var updateTitle = document.getElementById("todo-title");
 var error = document.getElementById("error");
 
 var states = {
@@ -19,6 +22,26 @@ form.onsubmit = function(event) {
     });
     todoTitle.value = "";
     event.preventDefault();
+};
+
+updateForm.onsubmit = function(event) {
+    getTodoList(function(todos) {
+        fetch("./api/todo/title/" + (todos[updateId.value].id - 1), {
+            method: "put",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                title: updateTitle.value,
+            })
+        }).then(function(response) {
+            if (response.status !== 200) {
+                error.textContent = "Failed to update title. Server returned " + this.status + " - " +
+                this.responseText;
+                return;
+            }
+        });
+    });
 };
 
 function createTodo(title, callback) {
