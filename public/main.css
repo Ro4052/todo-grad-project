@@ -38,13 +38,15 @@ li {
 }
 
 .completeButton {
-    margin-left: 10px;
     color: green;
+    position: fixed;
+    left: 710px;
 }
 
 .deleteButton {
-    margin-left: 20px;
     color: red;
+    position: fixed;
+    left: 630px;
 }
 
 .complete {
