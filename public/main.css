@@ -28,6 +28,8 @@ h1 {
 li {
     margin-top: 10px;
     list-style-type: square;
+    border-bottom: dashed;
+    max-width: 190px;
 }
 
 .inputBox {
