@@ -30,6 +30,11 @@ li {
     list-style-type: square;
 }
 
+.inputBox {
+    border-radius: 10px;
+    text-indent: 10px;
+}
+
 .button {
     border-radius: 10px;
     box-shadow: 0 8px 6px -6px black;
